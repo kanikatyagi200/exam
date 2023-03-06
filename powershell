@@ -1,0 +1,25 @@
+5-
+@echo OFF
+
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+
+if %OS%==32BIT echo This is a 32bit operating system
+if %OS%==64BIT echo This is a 64bit operating system
+
+6-
+PS C:\> $PSVersionTable
+
+
+1-New-Item -Path Env:\Test -value 'c:\Program Files(x86)\Test\'
+
+$env:Test
+[System.Environment]::SetEnvironmentVariable("Test","c:\Program Files(x86)\Test\")
+
+2-
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut($)
+$Shortcut = $WshShell.CreateShortcut("$InternetExplorer Test.lnk")
+$Shortcut.TargetPath="C:\Programs Files(x86)\Internet Explorer\iexplore.exe"
+$Shortcut.Arguments="/l"
+$Shortcut.IconLocation="C:\Programs Files\Internet Explorer"
+$Shortcut.Save()
